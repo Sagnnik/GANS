@@ -63,7 +63,7 @@ for epoch in range(num_epochs):
         real = real.view(-1, 784).to(device)
         batch_size = real.shape[0]
 
-        ### Train Discriminator: max log(D(x)) + log(1 - D(G(z)))
+        # Discriminator: max log(D(x)) + log(1 - D(G(z)))
         noise = torch.randn(batch_size, z_dim).to(device)
         fake = gen(noise)
         disc_real = disc(real).view(-1)
@@ -75,7 +75,7 @@ for epoch in range(num_epochs):
         lossD.backward(retain_graph=True)
         opt_disc.step()
 
-        ### Train Generator: min log(1 - D(G(z))) <-> max log(D(G(z))
+        # Generator: min log(1 - D(G(z))) <-> max log(D(G(z))
         output = disc(fake).view(-1)
         lossG = criterion(output, torch.ones_like(output))
         gen.zero_grad()
